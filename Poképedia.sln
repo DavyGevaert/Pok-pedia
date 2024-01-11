@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sdk", "Sdk", "{DEF3E7B1-3B63-4F17-933C-F3222DC8C641}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C2FB8712-4D6F-4C95-A229-4E6276543A3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poképedia.Model", "Poképedia.Model\Poképedia.Model.csproj", "{1DEC98F9-C8EC-4ACA-AB59-460B3C6000EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poképedia.Sdk.Abstractions", "Poképedia.Sdk.Abstractions\Poképedia.Sdk.Abstractions.csproj", "{39BEA7EB-D62B-438F-82DD-7822CB815E5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poképedia.Sdk", "Poképedia.Sdk\Poképedia.Sdk.csproj", "{6AA5BFAC-C65A-4530-896F-344713E40FF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{D004F39C-4D31-4915-B911-0085CBCCD39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poképedia.Mvc", "Poképedia.Mvc\Poképedia.Mvc.csproj", "{23ABFD87-A901-43E6-BD61-39D4E9F08531}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DEC98F9-C8EC-4ACA-AB59-460B3C6000EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DEC98F9-C8EC-4ACA-AB59-460B3C6000EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DEC98F9-C8EC-4ACA-AB59-460B3C6000EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DEC98F9-C8EC-4ACA-AB59-460B3C6000EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39BEA7EB-D62B-438F-82DD-7822CB815E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39BEA7EB-D62B-438F-82DD-7822CB815E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39BEA7EB-D62B-438F-82DD-7822CB815E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39BEA7EB-D62B-438F-82DD-7822CB815E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA5BFAC-C65A-4530-896F-344713E40FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA5BFAC-C65A-4530-896F-344713E40FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA5BFAC-C65A-4530-896F-344713E40FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA5BFAC-C65A-4530-896F-344713E40FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23ABFD87-A901-43E6-BD61-39D4E9F08531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23ABFD87-A901-43E6-BD61-39D4E9F08531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23ABFD87-A901-43E6-BD61-39D4E9F08531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23ABFD87-A901-43E6-BD61-39D4E9F08531}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1DEC98F9-C8EC-4ACA-AB59-460B3C6000EF} = {C2FB8712-4D6F-4C95-A229-4E6276543A3C}
+		{39BEA7EB-D62B-438F-82DD-7822CB815E5D} = {DEF3E7B1-3B63-4F17-933C-F3222DC8C641}
+		{6AA5BFAC-C65A-4530-896F-344713E40FF1} = {DEF3E7B1-3B63-4F17-933C-F3222DC8C641}
+		{23ABFD87-A901-43E6-BD61-39D4E9F08531} = {D004F39C-4D31-4915-B911-0085CBCCD39D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3130362-BFBF-4054-A9D2-87B2A871404E}
+	EndGlobalSection
+EndGlobal

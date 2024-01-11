@@ -1,0 +1,26 @@
+﻿@model Poképedia.Model.RootObject
+@{
+	ViewData["Title"] = "Poképedia";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>There are @Model.Count pokémons in our encyclopedia.</p>
+
+
+<div class="container-fluid content-row">
+	<div class="row">
+		@foreach (var pokemon in Model.Results)
+		{
+			<div class="col-lg-3 col-md-6" style="margin-bottom: 20px;">
+				<div class="card h-100" style="width: 20rem;">
+
+					<div class="card-body text-center">
+						<a href="@Url.Action("Details", "Home", pokemon)'">@pokemon.Name</a>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
