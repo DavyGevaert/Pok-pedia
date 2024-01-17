@@ -12,20 +12,14 @@ namespace Poképedia.Sdk
 {
     public class PokeApi : IPokeApi
     {
-        // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-8.0
-
-        private readonly IHttpClientFactory _httpClientFactory;
-
         private readonly HttpClient _httpClient;
 
         public static string NextPage { get; set; }
         public static string PreviousPage { get; set; }
 
-        public PokeApi(IHttpClientFactory httpClientFactory)
+        public PokeApi(HttpClient httpClient)
         {
-            _httpClientFactory = httpClientFactory;
-
-            _httpClient = new HttpClient(); 
+            _httpClient = httpClient; 
             _httpClient.BaseAddress = new System.Uri("https://pokeapi.co/api/v2/");
         }
 
@@ -100,11 +94,10 @@ namespace Poképedia.Sdk
 
         public async Task<Pokemon> GetPokemonByNameAsync(string name)
         {
-            var httpClient = _httpClientFactory.CreateClient("Poképedia");
 
             var route = $"https://pokeapi.co/api/v2/pokemon-species/{name}";
 
-            var httpResponse = await httpClient.GetAsync(route);
+            var httpResponse = await _httpClient.GetAsync(route);
 
             httpResponse.EnsureSuccessStatusCode();
 
@@ -120,11 +113,9 @@ namespace Poképedia.Sdk
 
         public async Task<Species> GetSpeciesByPokemonNameAsync(string name)
         {
-            var httpClient = _httpClientFactory.CreateClient("Poképedia");
-
             var route = $"https://pokeapi.co/api/v2/pokemon-species/{name}";
 
-            var httpResponse = await httpClient.GetAsync(route);
+            var httpResponse = await _httpClient.GetAsync(route);
 
             httpResponse.EnsureSuccessStatusCode();
 
