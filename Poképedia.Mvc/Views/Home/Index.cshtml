@@ -1,26 +1,41 @@
-﻿@model Poképedia.Model.RootObject
-@{
-	ViewData["Title"] = "Poképedia";
+﻿@model Poképedia.Mvc.Models.HomeViewModel
+
+<h2>Pokemon List</h2>
+
+@if (Model != null)
+{
+    <ul>
+        @if(Model.Results is null)
+        {
+            <p>Failed to fetch Pokemon data.</p>
+        }
+        else
+        {
+            @foreach (var pokemon in Model.Results)
+            {
+                <li>@pokemon.Name</li>
+            }
+        }
+        
+    </ul>
+
+    @if (Model.Results is null)
+    {
+        <p>You can't go to a previous or next page anymore</p>
+        <a href="@Url.Action("Index", "Home")">Return to home page</a>
+    }
+    else
+    {
+        @if (Model.Results.Count > 0 && Model.Results[0].Url != null)
+        {
+            <a href="@Url.Action("PreviousPage", "Home")">Previous Page</a>
+            <a href="@Url.Action("NextPage", "Home")">Next Page</a>
+        }
+    }
+
+    
 }
-
-<h1>@ViewData["Title"]</h1>
-
-<p>There are @Model.Count pokémons in our encyclopedia.</p>
-
-
-<div class="container-fluid content-row">
-	<div class="row">
-		@foreach (var pokemon in Model.Results)
-		{
-			<div class="col-lg-3 col-md-6" style="margin-bottom: 20px;">
-				<div class="card h-100" style="width: 20rem;">
-
-					<div class="card-body text-center">
-						<a href="@Url.Action("Details", "Home", pokemon)'">@pokemon.Name</a>
-					</div>
-				</div>
-			</div>
-		}
-	</div>
-</div>
-
+else
+{
+    <p>Failed to fetch Pokemon data.</p>
+}

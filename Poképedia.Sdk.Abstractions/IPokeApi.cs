@@ -5,10 +5,15 @@ namespace Poképedia.Sdk.Abstractions
     public interface IPokeApi
     {
 
-        Task<Pokemon> GetPokemonByNameAsync(string name);
+        //Task<Pokemon> GetPokemonByNameAsync(string name);
 
-        Task<Species> GetSpeciesByPokemonNameAsync(string name);
+        //Task<Species> GetSpeciesByPokemonNameAsync(string name);
 
-        Task<RootObject> GetRootObject();
+        Task<List<Pokemon>> GetPokemonListAsync();
+
+        Task<List<Pokemon>> GetNextPokemonListAsync();
+
+        Task<List<Pokemon>> GetPreviousPokemonListAsync();
+
     }
 }

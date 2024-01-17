@@ -1,7 +1,12 @@
-﻿using Poképedia.Model;
+﻿using Newtonsoft.Json;
+using Poképedia.Model;
 using Poképedia.Sdk.Abstractions;
+using System;
+using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json.Serialization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Poképedia.Sdk
 {
@@ -11,30 +16,86 @@ namespace Poképedia.Sdk
 
         private readonly IHttpClientFactory _httpClientFactory;
 
+        private readonly HttpClient _httpClient;
+
+        public static string NextPage { get; set; }
+        public static string PreviousPage { get; set; }
+
         public PokeApi(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
+
+            _httpClient = new HttpClient(); 
+            _httpClient.BaseAddress = new System.Uri("https://pokeapi.co/api/v2/");
         }
 
-        public async Task<RootObject> GetRootObject()
+        public async Task<List<Pokemon>> GetPokemonListAsync()
         {
-            var httpClient = _httpClientFactory.CreateClient("Poképedia");
+            
 
-            var route = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+            var httpResponse = await _httpClient.GetAsync("pokemon");
+                        
+            httpResponse.EnsureSuccessStatusCode();
 
-            var httpResponse = await httpClient.GetAsync(route);
+
+            var jsonContent = await httpResponse.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Pokemon>(jsonContent);
+
+            if (result.Results is null)
+            {
+                result.Next = "";
+            }
+            
+            NextPage = result.Next;
+            PreviousPage = result.Previous;
+
+            return result?.Results;
+        }
+
+        public async Task<List<Pokemon>> GetNextPokemonListAsync()
+        {
+
+            var httpResponse = await _httpClient.GetAsync(NextPage);
 
             httpResponse.EnsureSuccessStatusCode();
 
-            var result = await httpResponse.Content.ReadFromJsonAsync<RootObject>();
 
-            if (result is null)
+            var jsonContent = await httpResponse.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Pokemon>(jsonContent);
+
+            if (result.Results is null)
             {
-                return new RootObject();
+                result.Next = "";
             }
 
-            return result;
+            NextPage = result.Next;
+            PreviousPage = result.Previous;
+
+            return result?.Results;
         }
+
+        public async Task<List<Pokemon>> GetPreviousPokemonListAsync()
+        {
+            var httpResponse = await _httpClient.GetAsync(PreviousPage);
+
+            httpResponse.EnsureSuccessStatusCode();
+
+
+            var jsonContent = await httpResponse.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Pokemon>(jsonContent);
+
+            if (result.Results is null)
+            {
+                result.Next = "";
+            }
+
+            NextPage = result.Next;
+            PreviousPage = result.Previous;
+
+            return result?.Results;
+        }
+
+        // additional methods, needs to be tested
 
         public async Task<Pokemon> GetPokemonByNameAsync(string name)
         {
@@ -77,3 +138,4 @@ namespace Poképedia.Sdk
         }
     }
 }
+

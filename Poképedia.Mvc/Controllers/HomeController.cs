@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Poképedia.Model;
 using Poképedia.Mvc.Models;
 using Poképedia.Sdk;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
+using System.Web;
 
 namespace Poképedia.Mvc.Controllers
 {
@@ -10,29 +13,53 @@ namespace Poképedia.Mvc.Controllers
     {
         private readonly PokeApi _pokemonApi;
 
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger,
-                                PokeApi pokeApi)
+        public HomeController(PokeApi pokeApi)
         {
-            _logger = logger;
-            _pokemonApi = pokeApi;
+            _pokemonApi = pokeApi; 
         }
 
         public async Task<IActionResult> Index()
         {
-            RootObject rootObj = await _pokemonApi.GetRootObject();
+            HomeViewModel model = new HomeViewModel();
 
-            return View(rootObj);
+            var pokemonList = await _pokemonApi.GetPokemonListAsync();
+
+            model.Results = pokemonList;
+
+            return View(model);
         }
 
-		public async Task<IActionResult> Details(Pokemon pokemon)
+        public async Task<IActionResult> NextPage()
+        {
+            HomeViewModel model = new HomeViewModel();
+
+            var list = await _pokemonApi.GetNextPokemonListAsync();
+
+            model.Results = list;
+
+            return View("Index", model);
+        }
+
+        public async Task<IActionResult> PreviousPage()
+        {
+            HomeViewModel model = new HomeViewModel();
+
+            var list = await _pokemonApi.GetPreviousPokemonListAsync();
+
+            model.Results = list;
+
+            return View("Index", model);
+        }
+
+        public async Task<IActionResult> Details(Pokemon pokemon)
 		{
 			var poké = await _pokemonApi.GetPokemonByNameAsync(pokemon.Name);
 
             var species = await _pokemonApi.GetSpeciesByPokemonNameAsync(pokemon.Name);
 
             poké.Species = species;
+
+            // var image = await _pokemonApi.GetPokemonImageByIdAsync(1);
 
             return View(poké);
 		}

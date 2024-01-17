@@ -4,9 +4,17 @@
     {
         public string Name { get; set; }
 
-        public Uri Url { get; set; } 
+        public string Url { get; set; }
+
+		public List<Pokemon> Results { get; set; }
+
+        public string Next { get; set; }
+
+        public string Previous { get; set; }
 
         public Species Species { get; set; }
+
+        public IList<Ability> Abilities { get; set; } = new List<Ability>();
 
 	}
 }
