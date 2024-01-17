@@ -46,6 +46,7 @@ namespace Poképedia.Sdk
                 result.Next = "";
             }
             
+            // add static variables so they remember the pages in another method
             NextPage = result.Next;
             PreviousPage = result.Previous;
 
