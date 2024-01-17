@@ -24,14 +24,14 @@ namespace Poképedia.Sdk
         public PokeApi(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
-            _httpClient = _httpClientFactory.CreateClient("Poképedia");
 
+            _httpClient = new HttpClient(); 
+            _httpClient.BaseAddress = new System.Uri("https://pokeapi.co/api/v2/");
         }
 
         public async Task<List<Pokemon>> GetPokemonListAsync()
         {
             
-            _httpClient.BaseAddress = new System.Uri("https://pokeapi.co/api/v2/");
 
             var httpResponse = await _httpClient.GetAsync("pokemon");
                         
