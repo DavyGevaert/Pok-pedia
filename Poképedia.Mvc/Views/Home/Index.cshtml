@@ -13,7 +13,7 @@
         {
             @foreach (var pokemon in Model.Results)
             {
-                <img src="@pokemon.Image" class="img-thumbnail" alt="photo @pokemon.Image" />
+                <img src="@pokemon.Image" class="img-thumbnail" alt="photo @pokemon.Image" hidden="@Model.disabled" />
                 <li>@pokemon.Name</li>
             }
         }
@@ -23,7 +23,7 @@
     @if (Model.Results is null)
     {
         <p>You can't go to a previous or next page anymore</p>
-        <a href="@Url.Action("Index", "Home")">Return to home page</a>
+        <a href="@Url.Action("Index", "Home")">Return to home</a>
     }
     else
     {

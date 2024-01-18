@@ -5,5 +5,7 @@ namespace Poképedia.Mvc.Models
 	public class HomeViewModel
 	{
 		public List<Pokemon> Results { get; set; }
+
+		public bool disabled { get; set; }
 	}
 }

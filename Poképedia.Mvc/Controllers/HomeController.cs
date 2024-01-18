@@ -43,14 +43,8 @@ namespace Poképedia.Mvc.Controllers
 
             if (pokemonList is null)
             {
-                // do nothing
-                pokemonList = new List<Pokemon>();
-                pokemonList.Add(new Pokemon { Name = "Next page cannot be rendered", Url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" });
-
-                foreach (var pokemon in pokemonList)
-                {
-                    pokemon.Image = await _pokemonApi.DownloadSpriteIfDataIsNotFoundAsync(pokemon.Url);
-                }
+                model.Results = null;
+                model.disabled = true;
             }
             else
             {
@@ -58,9 +52,10 @@ namespace Poképedia.Mvc.Controllers
                 {
                     pokemon.Image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);
                 }
-            }
 
-            model.Results = pokemonList;
+                model.disabled = false;
+                model.Results = pokemonList;
+            }
 
             return View("Index", model);
         }
@@ -73,14 +68,8 @@ namespace Poképedia.Mvc.Controllers
 
             if (pokemonList is null)
             {
-                // do nothing
-                pokemonList = new List<Pokemon>();
-                pokemonList.Add(new Pokemon { Name = "Previous page cannot be rendered", Url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" });
-
-                foreach (var pokemon in pokemonList)
-                {
-                    pokemon.Image = await _pokemonApi.DownloadSpriteIfDataIsNotFoundAsync(pokemon.Url);
-                }
+                model.Results = null;
+                model.disabled = true;
             }
             else
             {
@@ -88,12 +77,10 @@ namespace Poképedia.Mvc.Controllers
                 {
                     pokemon.Image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);
                 }
-            }
 
-            
-            
-
-            model.Results = pokemonList;
+                model.disabled = false;
+                model.Results = pokemonList;
+            }           
 
             return View("Index", model);
         }
