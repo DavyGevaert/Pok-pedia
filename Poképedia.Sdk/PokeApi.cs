@@ -131,42 +131,6 @@ namespace Poképedia.Sdk
             return result;
         }
 
-        public async Task<string> DownloadSpriteIfDataIsNotFoundAsync(string url)
-        {
-            var result = "";
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
-                {
-
-                    // Get the front default sprite URL
-                    string spriteUrl = url;
-
-                    result = spriteUrl;
-
-                    // Download the sprite image
-                    HttpResponseMessage spriteResponse = await client.GetAsync(spriteUrl);
-                    if (spriteResponse.IsSuccessStatusCode)
-                    {
-                        Console.WriteLine($"Downloaded sprite.");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to download sprite @ " + url + ".");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Failed to fetch Pokémon data  @ " + url + ". Status code: " + response.StatusCode + "");
-                }
-            }
-
-            return result;
-        }
-
         public async Task<Pokemon> GetPokemonByNameAsync(string name)
         {
 
