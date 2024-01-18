@@ -33,8 +33,9 @@
 
                     @if (Model.Results.Count > 0 && Model.Results[0].Url != null)
                     {
-                        <a href="@Url.Action("PreviousPage", "Home")">Previous Page</a>
-                        <a href="@Url.Action("NextPage", "Home")">Next Page</a>
+                        <span>
+                            <a style="float: left" href="@Url.Action("PreviousPage", "Home")">Previous Page</a><a style ="float: right" href="@Url.Action("NextPage", "Home")">Next Page</a>
+                        </span>
                     }
                 }
             </div>
