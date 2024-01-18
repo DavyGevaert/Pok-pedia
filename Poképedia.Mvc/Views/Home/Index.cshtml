@@ -4,37 +4,48 @@
 
 @if (Model != null)
 {
-    <ul>
-        @if(Model.Results is null)
-        {
-            <p>Failed to fetch Pokemon data.</p>
-        }
-        else
-        {
-            @foreach (var pokemon in Model.Results)
+    <div class="container-fluid content-row">
+		<div class="row">
+            @if(Model.Results is null)
             {
-                <img src="@pokemon.Image" class="img-thumbnail" alt="photo @pokemon.Image" hidden="@Model.disabled" />
-                <li>@pokemon.Name</li>
+                <p>Failed to fetch Pokemon data.</p>
             }
-        }
-        
-    </ul>
+            else
+            {
+                @foreach (var pokemon in Model.Results)
+                {
+                    <div class="col-lg-3 col-md-6" style="margin-bottom: 20px;">
+                        <div class="card h-100" style="width: 20rem;">
+                            <p style="text-align:center; margin-top: 20px">
+                                <img class="img-thumbnail" src="@pokemon.Image" alt="@pokemon.Image" hidden="@Model.disabled" />
+                            </p>
+                            <div class="card-body text-center">
+                                <h5 class="card-title mb-3">
+                                    <a href="@Url.Action("Details", "Home", pokemon)'">@pokemon.Name</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
 
-    @if (Model.Results is null)
-    {
-        <p>You can't go to a previous or next page anymore</p>
-        <a href="@Url.Action("Index", "Home")">Return to home</a>
-    }
-    else
-    {
-        @if (Model.Results.Count > 0 && Model.Results[0].Url != null)
-        {
-            <a href="@Url.Action("PreviousPage", "Home")">Previous Page</a>
-            <a href="@Url.Action("NextPage", "Home")">Next Page</a>
-        }
-    }
+            @if (Model.Results is null)
+            {
+                <p>You can't go to a previous or next page anymore</p>
+                <a href="@Url.Action("Index", "Home")">Return to home</a>
+            }
+            else
+            {
+                @if (Model.Results.Count > 0 && Model.Results[0].Url != null)
+                {
+                    <a href="@Url.Action("PreviousPage", "Home")">Previous Page</a>
+                    <a href="@Url.Action("NextPage", "Home")">Next Page</a>
+                }
+            }
 
     
+        </div>
+    </div>
 }
 else
 {

@@ -93,7 +93,9 @@ namespace Poképedia.Mvc.Controllers
 
             poké.Species = species;
 
-            // var image = await _pokemonApi.GetPokemonImageByIdAsync(1);
+            var image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);
+
+            poké.Image = image;
 
             return View(poké);
 		}
