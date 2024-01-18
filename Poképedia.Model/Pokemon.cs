@@ -6,6 +6,8 @@
 
         public string Url { get; set; }
 
+        public string Image { get; set; }
+
 		public List<Pokemon> Results { get; set; }
 
         public string Next { get; set; }

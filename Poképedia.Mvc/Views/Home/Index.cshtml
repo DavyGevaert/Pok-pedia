@@ -13,6 +13,7 @@
         {
             @foreach (var pokemon in Model.Results)
             {
+                <img src="@pokemon.Image" class="img-thumbnail" alt="photo @pokemon.Image" />
                 <li>@pokemon.Name</li>
             }
         }

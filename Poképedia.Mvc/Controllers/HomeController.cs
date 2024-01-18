@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Web;
+using static System.Net.WebRequestMethods;
 
 namespace Poképedia.Mvc.Controllers
 {
@@ -24,6 +25,11 @@ namespace Poképedia.Mvc.Controllers
 
             var pokemonList = await _pokemonApi.GetPokemonListAsync();
 
+            foreach (var pokemon in pokemonList)
+            {
+                pokemon.Image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);
+            }
+
             model.Results = pokemonList;
 
             return View(model);
@@ -33,9 +39,28 @@ namespace Poképedia.Mvc.Controllers
         {
             HomeViewModel model = new HomeViewModel();
 
-            var list = await _pokemonApi.GetNextPokemonListAsync();
+            var pokemonList = await _pokemonApi.GetNextPokemonListAsync();
 
-            model.Results = list;
+            if (pokemonList is null)
+            {
+                // do nothing
+                pokemonList = new List<Pokemon>();
+                pokemonList.Add(new Pokemon { Name = "Next page cannot be rendered", Url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" });
+
+                foreach (var pokemon in pokemonList)
+                {
+                    pokemon.Image = await _pokemonApi.DownloadSpriteIfDataIsNotFoundAsync(pokemon.Url);
+                }
+            }
+            else
+            {
+                foreach (var pokemon in pokemonList)
+                {
+                    pokemon.Image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);
+                }
+            }
+
+            model.Results = pokemonList;
 
             return View("Index", model);
         }
@@ -44,9 +69,31 @@ namespace Poképedia.Mvc.Controllers
         {
             HomeViewModel model = new HomeViewModel();
 
-            var list = await _pokemonApi.GetPreviousPokemonListAsync();
+            var pokemonList = await _pokemonApi.GetPreviousPokemonListAsync();
 
-            model.Results = list;
+            if (pokemonList is null)
+            {
+                // do nothing
+                pokemonList = new List<Pokemon>();
+                pokemonList.Add(new Pokemon { Name = "Previous page cannot be rendered", Url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" });
+
+                foreach (var pokemon in pokemonList)
+                {
+                    pokemon.Image = await _pokemonApi.DownloadSpriteIfDataIsNotFoundAsync(pokemon.Url);
+                }
+            }
+            else
+            {
+                foreach (var pokemon in pokemonList)
+                {
+                    pokemon.Image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);
+                }
+            }
+
+            
+            
+
+            model.Results = pokemonList;
 
             return View("Index", model);
         }

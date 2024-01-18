@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Poképedia.Model;
 using Poképedia.Sdk.Abstractions;
 using System;
@@ -91,6 +92,80 @@ namespace Poképedia.Sdk
         }
 
         // additional methods, needs to be tested
+
+        public async Task<string> DownloadPokemonSpritesAsync(string url)
+        {
+            var result = "";
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    dynamic pokemonData = JObject.Parse(json);
+
+                    // Get the front default sprite URL
+                    string spriteUrl = pokemonData.sprites.front_default;
+
+                    result = spriteUrl;
+
+                    // Download the sprite image
+                    HttpResponseMessage spriteResponse = await client.GetAsync(spriteUrl);
+                    if (spriteResponse.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Downloaded sprite.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to download sprite @ " + url + ".");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to fetch Pokémon data  @ " + url + ". Status code: " + response.StatusCode + "");
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<string> DownloadSpriteIfDataIsNotFoundAsync(string url)
+        {
+            var result = "";
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    // Get the front default sprite URL
+                    string spriteUrl = url;
+
+                    result = spriteUrl;
+
+                    // Download the sprite image
+                    HttpResponseMessage spriteResponse = await client.GetAsync(spriteUrl);
+                    if (spriteResponse.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Downloaded sprite.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to download sprite @ " + url + ".");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to fetch Pokémon data  @ " + url + ". Status code: " + response.StatusCode + "");
+                }
+            }
+
+            return result;
+        }
 
         public async Task<Pokemon> GetPokemonByNameAsync(string name)
         {
