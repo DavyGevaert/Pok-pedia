@@ -26,9 +26,14 @@ namespace Poképedia.Sdk
 
         public async Task<List<Pokemon>> GetPokemonListAsync()
         {
-            
+            string baseUrl = "https://pokeapi.co/api/v2/pokemon/";
+            int offset = 0;
+            int limit = 10;
 
-            var httpResponse = await _httpClient.GetAsync("pokemon");
+            string requestUrl = $"{baseUrl}?offset={offset}&limit={limit}";
+
+
+            var httpResponse = await _httpClient.GetAsync(requestUrl);
                         
             httpResponse.EnsureSuccessStatusCode();
 
