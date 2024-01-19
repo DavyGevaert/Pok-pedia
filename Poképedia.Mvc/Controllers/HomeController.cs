@@ -91,6 +91,11 @@ namespace Poképedia.Mvc.Controllers
 
             var species = await _pokemonApi.GetSpeciesByPokemonNameAsync(pokemon.Name);
 
+            if (species.Color is null) { species.Color = new Color(); };
+            if (species.Egg_Groups is null) { species.Egg_Groups = new List<Egg>(); };
+            if (species.Evolution_Chain is null) { species.Evolution_Chain = new Evolution_Chain(); };
+            if (species.Evolves_From_Species is null) { species.Evolves_From_Species = new Evolves_from_species(); };
+
             poké.Species = species;
 
             var image = await _pokemonApi.DownloadPokemonSpritesAsync(pokemon.Url);

@@ -8,3 +8,51 @@
 
 <p>Base Happiness: @Model.Species.Base_Happiness</p>
 <p>Capture Rate: @Model.Species.Capture_Rate</p>
+
+@if (Model.Species.Color is null)
+{
+    // do nothing
+} else
+{
+    <p>Color: @Model.Species.Color.Name</p>
+}
+
+@if (Model.Species.Egg_Groups is null)
+{
+    // do nothing
+}
+else
+{
+    <p>Associated to the following egg groups :</p>
+    <ul>
+        @foreach (var egg in Model.Species.Egg_Groups)
+        {
+            <li>Egg name: @egg.Name</li>
+            <li>Egg url: @egg.URL</li>
+        }
+    </ul>
+}
+
+@if (Model.Species.Evolution_Chain is null)
+{
+    // do nothing
+}
+else
+{
+    <p>Evolution chain url : @Model.Species.Evolution_Chain.URL</p>
+}
+
+@if (Model.Species.Evolves_From_Species.Name is null)
+{
+    // do nothing
+}
+else
+{
+    <p>Evolves from species :</p>
+
+    <ul> 
+        <li>@Model.Species.Evolves_From_Species.Name</li>
+        <li>@Model.Species.Evolves_From_Species.URL</li>
+    </ul>
+}
+
