@@ -20,3 +20,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.pokemon-ball {
+    border: 3px solid white;
+    border-radius: 50%;
+    width: 5%;
+    height: 5%;
+}
