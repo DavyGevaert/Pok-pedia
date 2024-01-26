@@ -6,22 +6,17 @@
 
 <h3>@Model.Name</h3>
 
+<img class="img-thumbnail" src="@Model.Image" alt="@Model.Image" />
+
 <p>Base Happiness: @Model.Species.Base_Happiness</p>
 <p>Capture Rate: @Model.Species.Capture_Rate</p>
 
-@if (Model.Species.Color is null)
-{
-    // do nothing
-} else
+@if (Model.Species.Color != null)
 {
     <p>Color: @Model.Species.Color.Name</p>
 }
 
-@if (Model.Species.Egg_Groups is null)
-{
-    // do nothing
-}
-else
+@if (Model.Species.Egg_Groups != null)
 {
     <p>Associated to the following egg groups :</p>
     <ul>
@@ -33,20 +28,12 @@ else
     </ul>
 }
 
-@if (Model.Species.Evolution_Chain is null)
-{
-    // do nothing
-}
-else
+@if (Model.Species.Evolution_Chain != null)
 {
     <p>Evolution chain url : @Model.Species.Evolution_Chain.URL</p>
 }
 
-@if (Model.Species.Evolves_From_Species.Name is null)
-{
-    // do nothing
-}
-else
+@if (Model.Species.Evolves_From_Species.Name != null)
 {
     <p>Evolves from species :</p>
 
