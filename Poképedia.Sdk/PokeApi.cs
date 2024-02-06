@@ -53,31 +53,10 @@ namespace Poképedia.Sdk
             return result?.Results;
         }
 
-        public async Task<List<Pokemon>> GetNextPokemonListAsync()
+        public async Task<List<Pokemon>> GetPokemonListAsyncNextOrPrevious(string url)
         {
 
-            var httpResponse = await _httpClient.GetAsync(NextPage);
-
-            httpResponse.EnsureSuccessStatusCode();
-
-
-            var jsonContent = await httpResponse.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Pokemon>(jsonContent);
-
-            if (result.Results is null)
-            {
-                result.Next = "";
-            }
-
-            NextPage = result.Next;
-            PreviousPage = result.Previous;
-
-            return result?.Results;
-        }
-
-        public async Task<List<Pokemon>> GetPreviousPokemonListAsync()
-        {
-            var httpResponse = await _httpClient.GetAsync(PreviousPage);
+            var httpResponse = await _httpClient.GetAsync(url);
 
             httpResponse.EnsureSuccessStatusCode();
 

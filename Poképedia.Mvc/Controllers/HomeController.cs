@@ -39,7 +39,7 @@ namespace Poképedia.Mvc.Controllers
         {
             HomeViewModel model = new HomeViewModel();
 
-            var pokemonList = await _pokemonApi.GetNextPokemonListAsync();
+            var pokemonList = await _pokemonApi.GetPokemonListAsyncNextOrPrevious(PokeApi.NextPage);
 
             if (pokemonList is null)
             {
@@ -64,7 +64,7 @@ namespace Poképedia.Mvc.Controllers
         {
             HomeViewModel model = new HomeViewModel();
 
-            var pokemonList = await _pokemonApi.GetPreviousPokemonListAsync();
+            var pokemonList = await _pokemonApi.GetPokemonListAsyncNextOrPrevious(PokeApi.PreviousPage);
 
             if (pokemonList is null)
             {

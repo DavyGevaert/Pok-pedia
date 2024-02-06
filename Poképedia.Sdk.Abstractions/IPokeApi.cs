@@ -11,9 +11,7 @@ namespace Poképedia.Sdk.Abstractions
 
         Task<List<Pokemon>> GetPokemonListAsync();
 
-        Task<List<Pokemon>> GetNextPokemonListAsync();
-
-        Task<List<Pokemon>> GetPreviousPokemonListAsync();
+        Task<List<Pokemon>> GetPokemonListAsyncNextOrPrevious(string url);
 
     }
 }
